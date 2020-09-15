@@ -56,6 +56,15 @@
                     "endsPattern": "^If you don't see a command prompt"
                 }
             }
+        },
+        {
+            "label": "local-process-with-kubernetes.service",
+            "type": "local-process-with-kubernetes.service",
+            "service": "stats-api",
+            "ports": [
+                3001
+            ],
+            "isolateAs": "pragme"
         }
     ]
 }

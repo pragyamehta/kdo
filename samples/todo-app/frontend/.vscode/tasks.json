@@ -56,6 +56,22 @@
                     "endsPattern": "^If you don't see a command prompt"
                 }
             }
+        },
+        {
+            "label": "bridge-to-kubernetes.service",
+            "type": "bridge-to-kubernetes.service",
+            "service": "frontend",
+            "ports": [
+                3000
+            ]
+        },
+        {
+            "label": "bridge-to-kubernetes.compound",
+            "dependsOn": [
+                "bridge-to-kubernetes.service",
+                "Kdo Prelaunch"
+            ],
+            "dependsOrder": "sequence"
         }
     ]
 }

@@ -5,6 +5,32 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Kdo Launch with Kubernetes",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "bridge-to-kubernetes.compound",
+            "runtimeExecutable": "kdo",
+            "runtimeArgs": [
+                "--namespace=kdo-todo-app",
+                "--inherit=svc/frontend",
+                "--forward=9229:9229",
+                "--exec",
+                "--prekill=node",
+                "--stdin",
+                ".",
+                "node",
+                "--inspect-brk=0.0.0.0:9229",
+                "--nolazy",
+                "server.js"
+            ],
+            "address": "localhost",
+            "port": 9229,
+            "remoteRoot": "/app",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
             "name": "Kdo Launch",
             "type": "node",
             "request": "launch",

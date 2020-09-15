@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const request = require('request');
 const mongodb = require("mongodb");
 const serviceBus = require('servicebus');
+const http = require('http');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -118,12 +119,35 @@ app.prepare().then(() => {
     });
 
     server.get("/api/stats", function (req, res) {
-        request({
-            uri: 'http://' + process.env.STATS_API_HOST + "/stats",
-        }, function (error, response, body) {
+        var options = {
+            host: process.env.STATS_API_HOST,
+            path: '/stats',
+            method: 'GET'
+        };
+        const val = req.get('kubernetes-route-as');
+        if (val) {
+            console.log('kubernetes-route-as header value - %s', val);
+            options.headers = {
+                'kubernetes-route-as': val
+            }
+        }
+        var req = http.request(options, function(response) {
             res.setHeader('Content-Type', 'application/json');
-            res.send(body);
+            var responseString = '';
+            //another chunk of data has been received, so append it to `responseString`
+            response.on('data', function (chunk) {
+                responseString += chunk;
+            });
+            response.on('end', function () {
+                res.send(responseString);
+            });
         });
+
+        req.on('error', function(e) {
+            console.log('problem with request: ' + e.message);
+          });
+          
+          req.end();
     });
 
     server.get('/', (req, res) => {
