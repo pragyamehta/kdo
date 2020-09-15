@@ -99,8 +99,6 @@ spec:
           value: stats-cache
         - name: REDIS_PORT
           value: "6379"
-        ports:
-        - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
