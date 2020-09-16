@@ -93,7 +93,7 @@ spec:
     spec:
       containers:
       - name: stats-api
-        image: stephpr/todo-stats-api
+        image: murph15/stats-api:2
         env:
         - name: REDIS_HOST
           value: stats-cache
@@ -154,7 +154,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: stephpr/todo-frontend
+        image: murph15/frontend:15
         env:
         - name: MONGO_CONNECTION_STRING
           value: mongodb://todos-db
