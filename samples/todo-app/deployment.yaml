@@ -93,7 +93,7 @@ spec:
     spec:
       containers:
       - name: stats-api
-        image: murph15/stats-api:2
+        image: stephpr/todo-stats-api
         env:
         - name: REDIS_HOST
           value: stats-cache
