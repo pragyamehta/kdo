@@ -14,6 +14,7 @@ var cache = redis.createClient({
 });
 
 app.get('/stats', function (req, res) {
+    console.log('request for stats received with kubernetes-route-as header: %s', req.get('kubernetes-route-as'));
     cache.get('todosCreated', function (err, created) {
         cache.get('todosCompleted', function (err, completed) {
             cache.get('todosDeleted', function (err, deleted) {

@@ -126,19 +126,19 @@ app.prepare().then(() => {
         };
         const val = req.get('kubernetes-route-as');
         if (val) {
-            console.log('kubernetes-route-as header value - %s', val);
+            console.log('Forwarding kubernetes-route-as header value - %s', val);
             options.headers = {
                 'kubernetes-route-as': val
             }
         }
-        var req = http.request(options, function(response) {
+        var req = http.request(options, function(statResponse) {
             res.setHeader('Content-Type', 'application/json');
             var responseString = '';
             //another chunk of data has been received, so append it to `responseString`
-            response.on('data', function (chunk) {
+            statResponse.on('data', function (chunk) {
                 responseString += chunk;
             });
-            response.on('end', function () {
+            statResponse.on('end', function () {
                 res.send(responseString);
             });
         });

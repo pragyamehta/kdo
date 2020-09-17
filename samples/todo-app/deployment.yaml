@@ -69,7 +69,7 @@ spec:
     spec:
       containers:
       - name: stats-worker
-        image: stephpr/todo-stats-worker
+        image: azdspublic/todo-app-stats-worker
         env:
         - name: STATS_QUEUE_URI
           value: amqp://stats-queue
@@ -93,7 +93,7 @@ spec:
     spec:
       containers:
       - name: stats-api
-        image: stephpr/todo-stats-api
+        image: azdspublic/todo-app-stats-api
         env:
         - name: REDIS_HOST
           value: stats-cache
@@ -154,7 +154,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: murph15/frontend:15
+        image: azdspublic/todo-app-frontend
         env:
         - name: MONGO_CONNECTION_STRING
           value: mongodb://todos-db
